@@ -157,10 +157,7 @@
 
       <nav class="navlinks" aria-label="Primary">
         <a href="/blog/index.html">Blog</a>
-        <a href="/about.html">About</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/faq.html">FAQ</a>
+      
       </nav>
 
       <div class="searchbar" role="search">
@@ -181,9 +178,7 @@
       <h1>Searchable guides people link to when stuck</h1>
       <p>Auto-updating blog index. New post folder = automatically listed here.</p>
 
-      <div class="chips" id="tagChips" aria-label="Filter by tag">
-        <!-- chips get auto-generated from your posts -->
-      </div>
+      <div class="chips" id="tagChips" aria-label="Filter by tag"></div>
 
       <div style="margin-top:10px; color:var(--muted); font-size:12px">
         Tip: press <span class="kbd">Ctrl</span> <span class="kbd">K</span> to jump to search.
@@ -199,7 +194,7 @@
     </div>
 
     <footer>
-      <div>© <span id="year"></span> BitDark.NET </div>
+      <div>© <span id="year"></span> BitDark.NET • docs-style blog</div>
       <div class="footRight">
         <a href="/blog/index.html">Blog</a>
         <a href="/about.html">About</a>
@@ -212,12 +207,12 @@
 
   <script>
     /************************************************************
-     * CONFIG — set these once
+     * CONFIG — already filled for you
      ************************************************************/
-    const REPO_OWNER = "ArunCSEng";     // e.g. "arunkumar"
-    const REPO_NAME  = "BitDark";           // e.g. "BitDark"
-    const BRANCH     = "main";                     // "main" or "master"
-    const BLOG_PATH  = "blog";                     // folder name in repo
+    const REPO_OWNER = "ArunCSEng";
+    const REPO_NAME  = "BitDark";
+    const BRANCH     = "main";   // change to "master" only if needed
+    const BLOG_PATH  = "blog";
 
     /************************************************************
      * Search synonyms (docs-like)
@@ -253,7 +248,7 @@
     }
 
     /************************************************************
-     * Theme toggle + Ctrl+K search focus
+     * Theme + Ctrl+K
      ************************************************************/
     (function () {
       const root = document.documentElement;
@@ -279,10 +274,7 @@
     })();
 
     /************************************************************
-     * Auto-fetch posts:
-     * 1) List /blog folder directories via GitHub Contents API
-     * 2) For each directory, fetch raw /blog/<slug>/index.html
-     * 3) Read metadata: title, description, category, tags, updated
+     * Auto-fetch posts (GitHub Contents API + raw index.html)
      ************************************************************/
     const CACHE_KEY = "bd_blog_index_cache_v1";
     const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
@@ -292,11 +284,18 @@
       if (!res.ok) throw new Error("GitHub API error: " + res.status);
       return res.json();
     }
-
     async function fetchText(url){
       const res = await fetch(url);
       if (!res.ok) throw new Error("Fetch error: " + res.status);
       return res.text();
+    }
+    function escapeHTML(s){
+      return String(s||"")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
     }
 
     function parsePostMeta(html, slug){
@@ -318,20 +317,16 @@
         || doc.querySelector("time[datetime]")?.getAttribute("datetime")
         || "1970-01-01";
 
-      // Keywords for search matching:
-      // (title + category + tags + description + slug tokens + synonyms base)
       const keywords = [
         title, description, category, tags.join(" "),
         slug.replace(/-/g," "),
-        // add default broad keywords to help early search
-        "privacy", "email", "mail", "gmail", "outlook", "cloud", "encryption", "openpgp", "pgp", "gpg", "yubikey", "kleopatra", "gpg4win", "pdf"
+        "privacy","email","mail","gmail","outlook","cloud","encryption","openpgp","pgp","gpg","yubikey","kleopatra","gpg4win","pdf"
       ].join(" ").toLowerCase();
 
       return { slug, title, description, category, tags, updated, keywords };
     }
 
     function sortByUpdatedDesc(a,b){
-      // compare YYYY-MM-DD safely
       return (b.updated || "").localeCompare(a.updated || "");
     }
 
@@ -359,20 +354,10 @@
       `;
     }
 
-    function escapeHTML(s){
-      return String(s||"")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
     function buildTagChips(allTags){
       const container = document.getElementById("tagChips");
       container.innerHTML = "";
       const sorted = Array.from(allTags).sort((a,b)=>a.localeCompare(b));
-      // show a few common first if present
       const prefer = ["privacy","email","cloud","yubikey","kleopatra","pdf","error-fix","windows"];
       const final = [
         ...prefer.filter(t => sorted.includes(t)),
@@ -394,7 +379,6 @@
       const posts = Array.from(document.querySelectorAll("#postList .post"));
       const empty = document.getElementById("emptyState");
       const chips = Array.from(document.querySelectorAll("#tagChips .chip"));
-
       let activeTags = new Set();
 
       function passesTags(post){
@@ -449,9 +433,8 @@
 
     async function loadPosts(){
       const loading = document.getElementById("loadingBox");
-      const list = document.getElementById("postList");
 
-      // Try cache
+      // Cache
       try{
         const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
         if (cached && cached.when && (Date.now() - cached.when) < CACHE_TTL_MS && Array.isArray(cached.posts)){
@@ -462,14 +445,10 @@
       }catch{}
 
       try{
-        // 1) list /blog folder
         const api = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}?ref=${BRANCH}`;
         const items = await fetchJSON(api);
-
-        // folders are posts; ignore index.html and any non-dir
         const dirs = items.filter(x => x.type === "dir" && !x.name.startsWith("_"));
 
-        // 2) fetch each post's raw index.html to read metadata
         const posts = [];
         for (const d of dirs){
           const slug = d.name;
@@ -477,22 +456,17 @@
           try{
             const html = await fetchText(raw);
             posts.push(parsePostMeta(html, slug));
-          }catch{
-            // if a folder exists without index.html, skip silently
-          }
+          }catch{}
         }
 
         posts.sort(sortByUpdatedDesc);
 
-        // Cache
-        try{
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ when: Date.now(), posts }));
-        }catch{}
+        try{ localStorage.setItem(CACHE_KEY, JSON.stringify({ when: Date.now(), posts })); }catch{}
 
         renderAll(posts);
         loading.style.display = "none";
       }catch(err){
-        loading.textContent = "Could not load posts (check repo config in blog/index.html).";
+        loading.textContent = "Could not load posts. (Check BRANCH name or GitHub Pages source.)";
         console.error(err);
       }
     }
@@ -503,7 +477,6 @@
 
       list.innerHTML = posts.map(p => {
         p.tags.forEach(t => allTags.add(t.toLowerCase()));
-        // also treat common categories as tags for filtering
         allTags.add(p.category.toLowerCase().replace(/\s+/g,"-"));
         return renderPostCard(p);
       }).join("");

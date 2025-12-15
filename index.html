@@ -520,24 +520,28 @@ body.theme-neon .mini-footer {
 
   <div class="page">
     <header class="top-bar">
-      <a href="/" class="brand"><b>BitDark</b> <span>Safe-Link Analyzer</span>span></a>
-      <div class="theme-switcher">
-        <select id="theme-select" class="theme-select">
-          <option value="theme-light">Classic (Light)</option>
-          <option value="theme-matrix">Matrix</option>
-          <option value="theme-neon">Neon Dark</option>
-        </select>
-      </div>
-    </header>
+  <a href="/" class="brand">BitDark</a>
 
-    <main>
-      <section class="card" aria-label="BitDark Safe Link Scanner">
-        <div class="header">
-          <h1 class="header-title">Check if a link looks risky</h1>
-          <p class="header-sub">
-            Paste a link from SMS, WhatsApp, email or browser popup. We’ll run local heuristic checks.
-          </p>
-        </div>
+  <div class="theme-switcher">
+    <select id="theme-select" class="theme-select">
+      <option value="theme-light">Classic (Light)</option>
+      <option value="theme-matrix">Matrix</option>
+      <option value="theme-neon">Neon Dark</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <section class="card" aria-label="Link safety analysis">
+    <div class="header">
+      <p class="tool-label">Safe Link Analyzer</p>
+
+      <h1 class="header-title">Check if a link is risky or unsafe</h1>
+
+      <p class="header-sub">
+        Paste a link from SMS, WhatsApp, email, or browser popups. We run local privacy-friendly heuristic checks.
+      </p>
+    </div>
 
         <form id="scan-form" novalidate>
           <label for="url-input">Paste suspicious URL</label>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bitdark.net/</loc>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <sitemap>
+    <loc>https://bitdark.net/sitemap-main.xml</loc>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://bitdark.net/blog-sitemap.xml</loc>
+  </sitemap>
+
+</sitemapindex>

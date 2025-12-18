@@ -5,10 +5,12 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   generate-blog-sitemap:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,16 +20,13 @@ jobs:
           echo '<?xml version="1.0" encoding="UTF-8"?>' > blog-sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> blog-sitemap.xml
 
+          shopt -s nullglob
           for file in blog/*/index.html; do
             SLUG=$(basename "$(dirname "$file")")
 
-            # Skip non-post folders
-            if [ "$SLUG" = "index.html" ]; then
-              continue
-            fi
-
-            UPDATED=$(grep -oP '(?<=bd:updated" content=")[^"]+' "$file" || echo "")
-            [ -z "$UPDATED" ] && UPDATED=$(date +%F)
+            # Read bd:updated from the post
+            UPDATED=$(grep -oP '(?<=bd:updated" content=")[^"]+' "$file" || true)
+            if [ -z "$UPDATED" ]; then UPDATED=$(date +%F); fi
 
             echo "  <url>" >> blog-sitemap.xml
             echo "    <loc>https://bitdark.net/blog/$SLUG/</loc>" >> blog-sitemap.xml
@@ -39,7 +38,7 @@ jobs:
 
           echo '</urlset>' >> blog-sitemap.xml
 
-      - name: Commit and push sitemap
+      - name: Commit and push blog-sitemap.xml
         run: |
           git config user.name "bitdark-bot"
           git config user.email "bot@bitdark.net"

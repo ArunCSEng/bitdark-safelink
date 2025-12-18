@@ -1009,6 +1009,10 @@ body.theme-neon .mini-footer {
 
     <!-- Minimal transparent footer links -->
   <div class="mini-footer">
+    © <span id="year"></span> BitDark.NET
+    <span style="margin-left: 400px;"></span>
+    Privacy-First • Client-Only URL Analysis • No servers • No tracking • No link uploads
+    <span style="margin-left: 350px;"></span>
     <a href="/blog/">Blog</a>
     <span>·</span>
     <a href="/about.html">About</a>
@@ -1021,7 +1025,7 @@ body.theme-neon .mini-footer {
   </div>
 
   <script>
-    // existing JS here...
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

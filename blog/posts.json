@@ -1,5 +1,23 @@
 [
   {
+    "slug": "browser-allow-notifications-popups-why-theyre-dangerous-how-to-stop-them",
+    "title": "Browser “Allow Notifications” Popups: Why They’re Dangerous & How to Stop Them",
+    "description": "Practical guide from BitDark.NET.",
+    "category": "General",
+    "tags": [],
+    "updated": "1970-01-01",
+    "keywords": "browser “allow notifications” popups: why they’re dangerous & how to stop them practical guide from bitdark.net. general  browser-allow-notifications-popups-why-theyre-dangerous-how-to-stop-them"
+  },
+  {
+    "slug": "can-malware-infect-you-without-downloading-files-yes-here-how",
+    "title": "Can Malware Infect You Without Downloading Files? (Yes — Here’s How)",
+    "description": "Practical guide from BitDark.NET.",
+    "category": "General",
+    "tags": [],
+    "updated": "1970-01-01",
+    "keywords": "can malware infect you without downloading files? (yes — here’s how) practical guide from bitdark.net. general  can-malware-infect-you-without-downloading-files-yes-here-how"
+  },
+  {
     "slug": "digitally-sign-pdf-yubikey-okular",
     "title": "Digitally Sign PDFs with YubiKey + Okular (2026)",
     "description": "Practical guide from BitDark.NET.",
@@ -7,6 +25,15 @@
     "tags": [],
     "updated": "1970-01-01",
     "keywords": "digitally sign pdfs with yubikey + okular (2026) practical guide from bitdark.net. general  digitally-sign-pdf-yubikey-okular"
+  },
+  {
+    "slug": "how-to-check-a-qr-code-link-safely-without-scanning-it-blindly",
+    "title": "How to Check a QR Code Link Safely (Without Scanning It Blindly)",
+    "description": "Practical guide from BitDark.NET.",
+    "category": "General",
+    "tags": [],
+    "updated": "1970-01-01",
+    "keywords": "how to check a qr code link safely (without scanning it blindly) practical guide from bitdark.net. general  how-to-check-a-qr-code-link-safely-without-scanning-it-blindly"
   },
   {
     "slug": "how-to-check-a-short-links-real-destination-without-opening-it",
@@ -54,6 +81,24 @@
     "keywords": "how to spot a suspicious link without uploading it anywhere practical guide from bitdark.net. general  how-to-spot-a-suspicious-link-without-uploading-it-anywhere"
   },
   {
+    "slug": "is-visiting-a-website-enough-to-get-hacked-yes-here-how",
+    "title": "Is Visiting a Website Enough to Get Hacked? Yes — Here’s How",
+    "description": "Practical guide from BitDark.NET.",
+    "category": "General",
+    "tags": [],
+    "updated": "1970-01-01",
+    "keywords": "is visiting a website enough to get hacked? yes — here’s how practical guide from bitdark.net. general  is-visiting-a-website-enough-to-get-hacked-yes-here-how"
+  },
+  {
+    "slug": "silent-malware-attacks-that-leave-no-files-on-your-device",
+    "title": "Silent Malware: Attacks That Leave No Files on Your Device",
+    "description": "Practical guide from BitDark.NET.",
+    "category": "General",
+    "tags": [],
+    "updated": "1970-01-01",
+    "keywords": "silent malware: attacks that leave no files on your device practical guide from bitdark.net. general  silent-malware-attacks-that-leave-no-files-on-your-device"
+  },
+  {
     "slug": "why-your-data-is-still-tracked-even-when-you-turn-off-app-permissions",
     "title": "Why Your Data Is Still Tracked Even When You Turn Off App Permissions",
     "description": "Practical guide from BitDark.NET.",
@@ -61,6 +106,15 @@
     "tags": [],
     "updated": "1970-01-01",
     "keywords": "why your data is still tracked even when you turn off app permissions practical guide from bitdark.net. general  why-your-data-is-still-tracked-even-when-you-turn-off-app-permissions"
+  },
+  {
+    "slug": "your-browser-fingerprint-the-tracking-you-cant-turn-off",
+    "title": "Your Browser Fingerprint: The Tracking You Can’t Turn Off",
+    "description": "Practical guide from BitDark.NET.",
+    "category": "General",
+    "tags": [],
+    "updated": "1970-01-01",
+    "keywords": "your browser fingerprint: the tracking you can’t turn off practical guide from bitdark.net. general  your-browser-fingerprint-the-tracking-you-cant-turn-off"
   },
   {
     "slug": "your-session-expired-scams-how-to-tell-fake-login-pages-instantly",
